@@ -1,0 +1,38 @@
+cart referenced is ZetaWing v1.1 (ocean).crt
+
+starting number of lives (3, max 9)
+  cart: 2784
+  RAM: 0b24
+
+starting level (0, max 6)
+  cart: 2780
+  RAM: 0b20
+
+starting weapon level (0, max 9)
+  cart: 277c
+  RAM: 0b1c
+
+extra player score x 10,000 (5)
+  cart: 2778, also store desired value-1 in 2953
+  RAM: 0b18, also store desired value-1 in 0cf3
+
+infinite lives
+  cart: ea -> 76f3, ea -> 76f4
+  RAM: ea -> 5a73, ea -> 5a74
+
+no weapon level decrease
+  cart: ea -> 2157, ea -> 2158
+  RAM: ea -> 04f7, ea -> 04f8
+
+** too many men bugfix **
+  cart: 0f -> 2964
+
+zero page vars while playing:
+6a - difficulty (0 - easy, 1 - normal, 2 - hard)
+d0-d2 - score
+d4-d5 - next bonus x 100
+d6 - auto fire (0, 1)
+d7 - level
+d8 - lives left
+dc - p count, every 12 weapon upgrade
+db - weapon upgrade (max 9)

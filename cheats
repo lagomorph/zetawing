@@ -1,6 +1,6 @@
 cart referenced is ZetaWing v1.1 (ocean).crt
 
-starting number of lives (3, max 9)
+starting number of lives (3, max 9 for proper display)
   cart: 2784
   RAM: 0b24
 
@@ -24,15 +24,17 @@ no weapon level decrease
   cart: ea -> 2157, ea -> 2158
   RAM: ea -> 04f7, ea -> 04f8
 
-** too many men bugfix **
+If you have nine lives and get a bonus life there's currently a bug
+in the game where it'll crash due to an extra item left on the stack.
+BUGFIX:
   cart: 0f -> 2964
 
 zero page vars while playing:
 6a - difficulty (0 - easy, 1 - normal, 2 - hard)
-d0-d2 - score
-d4-d5 - next bonus x 100
+d0-d2 - BCD score
+d4-d5 - BCD next bonus x 100
 d6 - auto fire (0, 1)
-d7 - level
-d8 - lives left
+d7 - level (0-6)
+d8 - lives left (max 9 for proper display)
 dc - p count, every 12 weapon upgrade
 db - weapon upgrade (max 9)

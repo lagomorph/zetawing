@@ -1,34 +1,34 @@
-cart referenced is ZetaWing v1.2.crt
+cart referenced is ZetaWing v1.2.1.crt
 
 starting number of lives (3, max 9 for proper display)
-  cart: 47cd
-  RAM: 0b5d
+  cart: 47b9
+  RAM: 0b49
 
 starting level (0, max 6)
-  cart: 47c9
-  RAM: 0b59
+  cart: 47b5
+  RAM: 0b45
 
 starting weapon level (0, max 9)
-  cart: 47c5
-  RAM: 0b55
+  cart: 47b1
+  RAM: 0b41
 
 extra player score x 10,000 (5)
-  cart: 47c1, also store desired value-1 in 499c
-  RAM: 0b51, also store desired value-1 in 0d2c
+  cart: 47ad, also store desired value-1 in 4988
+  RAM: 0b3d, also store desired value-1 in 0d18
 
 infinite lives
-  cart: ea -> 9147, ea -> 9148
-  RAM: ea -> 54b7, ea -> 54b8
+  cart: ea -> 9120, ea -> 9121
+  RAM: ea -> 5490, ea -> 5491
 
 no weapon level decrease
-  cart: ea -> 41a1, ea -> 41a2
-  RAM: ea -> 0531, ea -> 0532
+  cart: ea -> 419a, ea -> 419b
+  RAM: ea -> 052a, ea -> 052b
 
 If you have nine lives and get a bonus life there's currently a bug
 in the game where it'll crash due to an extra item left on the stack.
 BUGFIX:
-  cart: 0f -> 49ad
-  RAM: 0f -> 0d3d
+  cart: 0f -> 4999
+  RAM: 0f -> 0d29
 
 zero page vars while playing:
 6a - difficulty (0 - easy, 1 - normal, 2 - hard)
@@ -39,3 +39,26 @@ d7 - level (0-6)
 d8 - lives left (max 9 for proper display)
 dc - p count, every 12 weapon upgrade
 db - weapon upgrade (max 9)
+
+
+disk save format as of v1.2.1
+
+example                  ; description
+00 02 5a 57 31 4f 50 53  ; constant 00 02,
+                         ; constant ZW1OPS
+00 35 00 01 04 01 04 ff  ; high score entry (highest 1 of 8)
+                         ; three byte BCD score without last two zeros,
+                         ; one byte difficulty (0: easy, 1: normal, 2: hard),
+                         ; three byte name (A = 1),
+                         ; constant ff
+                         ; in this case: 350000, normal, DAD, ff
+<next 7 high score entries same format as above>
+01 00 9e 0b              ; one byte difficulty / pause key with
+                         ; low 2 bits difficulty (0: easy, 1: normal, 2: hard)
+                         ; next lowest two bits pause key (0: p, 1: space,
+                         ; 2: stp, 3: f7)
+                         ; one byte autofire (0: off, 80: on)
+                         ; two byte LE checksum computed by adding previous
+                         ; bytes after 00 02 up until the checksum
+                         ; in this case: normal difficulty / pause = p,
+                         ; no autofire, 0b9e checksum
